@@ -36,7 +36,7 @@ export const FormHandling=()=>{
 
     const submitReview = (e) => {
      
-        Axios.post("http://localhost:5001/api", { movieName: movie, movieReview: review })
+        Axios.post("http://localhost:5001/api/post", { movieName: movie, movieReview: review })
             .then(() => {
               
                 setMovieList([...movieList, { movieName: movie, movieReview: review }]);

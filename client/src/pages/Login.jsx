@@ -1,7 +1,11 @@
+import { LoginComponents } from "../components/LoginComponent"
 export const Login=()=>{
     return(
-        <div>
-            welcome to login Form
+        <div className="container">
+            <div className="body-content">
+
+          <LoginComponents/>
+            </div>
         </div>
     )
 }
