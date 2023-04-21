@@ -2,7 +2,7 @@ const express=require("express")
 const app=express();
 const cors=require("cors")
 const bodyParser=require('body-parser')
-const mysql=require("mysql")
+const signUpRoute=require('./routes/signUp')
  const movieRoutes=require('./routes/movie.route');
 const db=require('./model/db')
 
@@ -13,6 +13,7 @@ app.use(express.json())
 
 //  get all data from db
 app.use('/api',movieRoutes);
+app.use("/signUp",signUpRoute)
 
  const port=5001
  const start=async()=>{
