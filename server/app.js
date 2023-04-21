@@ -13,14 +13,14 @@ app.use(express.json())
 
 //  get all data from db
 app.use('/api',movieRoutes);
-app.use("/signUp",signUpRoute)
+app.use("/",signUpRoute)
 
  const port=5001
  const start=async()=>{
    
   
     app.listen(port,()=>{
-        console.log('connected and working');
+        console.log('connected and working'+""+port);
     })
    
     
