@@ -25,11 +25,12 @@ export const LoginComponents = () => {
       password: data.password
     })
       .then((res) => {
-        console.log('response received', res.status);
+        console.log('response received', res);
         if(res.status==200){
-        
+        console.log(res.data);
             setResponse("");
-            setRedirect(true)
+            setRedirect(true);
+            localStorage.setItem("userId",res.data.userId)
 
 
         }

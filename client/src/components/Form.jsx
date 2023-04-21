@@ -6,6 +6,7 @@ export const FormHandling=()=>{
     const [review, setReview] = useState("")
     const [movieList, setMovieList] = useState([])
     const [updateReview,setUpdateReview]=useState("")
+    const [userId,setUserId]=useState(null)
   
 //  get all movies
 
@@ -23,7 +24,11 @@ export const FormHandling=()=>{
 // get moviename typed
     
     const handleMovieName = (e) => {
-        setMovieName(e.target.value)
+        setMovieName(e.target.value);
+        const id=localStorage.getItem("userId");
+        if(id){
+            setUserId(id)
+        }
     }
     
 //  get movieReview typed
@@ -36,7 +41,7 @@ export const FormHandling=()=>{
 
     const submitReview = (e) => {
      
-        Axios.post("http://localhost:5001/api/post", { movieName: movie, movieReview: review })
+        Axios.post("http://localhost:5001/api/post", { movieName: movie, movieReview: review ,userId:userId})
             .then(() => {
               
                 setMovieList([...movieList, { movieName: movie, movieReview: review }]);
