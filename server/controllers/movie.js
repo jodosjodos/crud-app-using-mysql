@@ -1,5 +1,5 @@
  const db= require( "../model/db");
- const mysql=require('mysql')
+
 const getAllMovies=async(req,res)=>{
     const sqlInsert=` SELECT * FROM review`
     db.query(sqlInsert,(err,results)=>{
@@ -16,8 +16,10 @@ const getAllMovies=async(req,res)=>{
 const addNewMovie=(req,res)=>{
     const movieName=req.body.movieName
     const movieReview=req.body.movieReview
-    const sqlInsert=` INSERT INTO review  (movieName,movieReview) VALUES (?,?)`
-    db.query(sqlInsert,[movieName,movieReview],(err,results )=>{
+    const userId=req.body.userId
+    // console.log(userId);
+    const sqlInsert=` INSERT INTO review  (movieName,movieReview,userId) VALUES (?,?,?)`
+    db.query(sqlInsert,[movieName,movieReview,userId],(err,results )=>{
      if(err){
         console.log(err);
         res.send(err)
