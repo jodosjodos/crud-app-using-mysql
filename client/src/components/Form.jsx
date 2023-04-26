@@ -6,15 +6,19 @@ export const FormHandling=()=>{
     const [review, setReview] = useState("")
     const [movieList, setMovieList] = useState([])
     const [updateReview,setUpdateReview]=useState("")
-    const [userId,setUserId]=useState(null)
-  
-//  get all movies
+    const [email,setEmail]=useState("")
 
-    useEffect(() => {
-        Axios.get("http://localhost:5001/api/get")
+const userEmail=localStorage.getItem("email");
+    useEffect( () => {
+        
+        Axios.get(`http://localhost:5001/api/get/${userEmail}`)
             .then((data) => {
-                
-                setMovieList(data.data)
+                if(data.data){
+                   
+                   
+
+                    setMovieList(data.data)
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -25,10 +29,7 @@ export const FormHandling=()=>{
     
     const handleMovieName = (e) => {
         setMovieName(e.target.value);
-        const id=localStorage.getItem("userId");
-        if(id){
-            setUserId(id)
-        }
+       
     }
     
 //  get movieReview typed
@@ -39,19 +40,26 @@ export const FormHandling=()=>{
 
 //  created new movie
 
-    const submitReview = (e) => {
-     
-        Axios.post("http://localhost:5001/api/post", { movieName: movie, movieReview: review ,userId:userId})
-            .then(() => {
-              
-                setMovieList([...movieList, { movieName: movie, movieReview: review }]);
-              
-                setMovieName("");
-                setReview("");
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+useEffect(()=>{
+    setEmail(()=>{return localStorage.getItem("email")})
+},[])
+    const submitReview = async(e) => {
+  
+    
+        Axios.post("http://localhost:5001/api/post", { movieName: movie, movieReview: review,userEmail:email})
+        .then(() => {
+          
+            setMovieList([...movieList, { movieName: movie, movieReview: review }]);
+          
+            setMovieName("");
+            setReview("");
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    
+    // console.log(email);
+       
     };
       
 //  get value being typed in  udpate input
@@ -63,6 +71,7 @@ export const FormHandling=()=>{
     // update data
 
     const updateFunction=(movie)=>{
+       
      Axios.put("http://localhost:5001/api/update",{movieName:movie,movieReview:updateReview}).then(()=>{
         console.log('it is updated');
         setUpdateReview("")
@@ -87,6 +96,7 @@ export const FormHandling=()=>{
     // delete movie
 
     const deleteMovie=(movie)=>{
+       
         Axios.delete(`http://localhost:5001/api/delete/${movie}`)
         .then(()=>{
           setMovieList((prev)=>{
@@ -135,6 +145,7 @@ export const FormHandling=()=>{
                          <div className='buttons'>
                          <button onClick={()=>{updateFunction(each.movieName)}} type='submit' className='updateButton'>update</button>
                           <button onClick={()=>{deleteMovie(each.movieName)}} type='submit' className='deleteButton'>delete</button>
+                          {/* {userEmail} */}
                          </div>
                           
                     </div>

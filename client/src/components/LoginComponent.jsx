@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Axios from "axios";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Navigate } from 'react-router-dom';
 
 export const LoginComponents = () => {
@@ -30,7 +30,7 @@ export const LoginComponents = () => {
         console.log(res.data);
             setResponse("");
             setRedirect(true);
-            localStorage.setItem("userId",res.data.userId)
+            localStorage.setItem("email",res.data.email)
 
 
         }

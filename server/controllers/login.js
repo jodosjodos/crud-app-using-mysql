@@ -25,7 +25,7 @@ db.query(getAllqll,email,(err,results)=>{
           
             const token=createToken(results[0].id)
             res.set('Authorization', `Bearer ${token}`);
-            res.status(200).send({userId:results[0].id});
+            res.status(200).send({email:results[0].email});
         
             
         }else{

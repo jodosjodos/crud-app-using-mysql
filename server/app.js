@@ -16,6 +16,7 @@ app.use(express.json())
 
 //  get all data from db
 app.use('/api',movieRoutes);
+
 app.use("/",signUpRoute)
 
  const port=5001
